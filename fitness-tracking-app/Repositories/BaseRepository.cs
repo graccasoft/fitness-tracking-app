@@ -28,6 +28,15 @@ namespace fitness_tracking_app.Repositories {
             return entity;
         }
 
+        public T customQueryGet(string where) {
+            T entity = null;
+            string tableName = new T().GetTableName();
+            string query = $"SELECT * FROM {tableName} {where}";
+            Console.WriteLine(query);
+            return entity;
+        }
+
+
         public List<T> getAll() {
             string tableName = new T().GetTableName();
             string query = $"SELECT * FROM {tableName}";
