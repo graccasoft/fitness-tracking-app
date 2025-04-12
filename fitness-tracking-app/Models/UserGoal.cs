@@ -11,7 +11,7 @@ namespace fitness_tracking_app.Models {
             return "user_goal";
         }
         public int UserId { get; set; }
-        public double goal { get; set; }
+        public double Goal { get; set; }
 
     }
 }
