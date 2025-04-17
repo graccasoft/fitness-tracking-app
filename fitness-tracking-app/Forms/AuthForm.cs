@@ -15,7 +15,7 @@ namespace fitness_tracking_app.Forms {
         }
 
         private void lblRegister_Click(object sender, EventArgs e) {
-           togglePanels();
+            togglePanels();
         }
 
         private void lblLogin_Click(object sender, EventArgs e) {
@@ -25,6 +25,12 @@ namespace fitness_tracking_app.Forms {
         private void togglePanels() {
             registerPanel.Visible = !registerPanel.Visible;
             loginPanel.Visible = !loginPanel.Visible;
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e) {
+            var mainForm = new MainForm();
+            mainForm.Show();
+            this.Hide();
         }
     }
 }

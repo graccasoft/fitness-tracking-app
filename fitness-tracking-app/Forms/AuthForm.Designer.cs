@@ -42,7 +42,7 @@
             loginPanel = new Panel();
             label7 = new Label();
             lblRegister = new Label();
-            button2 = new Button();
+            btnLogin = new Button();
             label10 = new Label();
             textBox7 = new TextBox();
             label11 = new Label();
@@ -199,7 +199,7 @@
             // 
             loginPanel.Controls.Add(label7);
             loginPanel.Controls.Add(lblRegister);
-            loginPanel.Controls.Add(button2);
+            loginPanel.Controls.Add(btnLogin);
             loginPanel.Controls.Add(label10);
             loginPanel.Controls.Add(textBox7);
             loginPanel.Controls.Add(label11);
@@ -230,14 +230,15 @@
             lblRegister.Text = "Don't have an account? Register";
             lblRegister.Click += lblRegister_Click;
             // 
-            // button2
+            // btnLogin
             // 
-            button2.Location = new Point(127, 425);
-            button2.Name = "button2";
-            button2.Size = new Size(98, 27);
-            button2.TabIndex = 10;
-            button2.Text = "Login";
-            button2.UseVisualStyleBackColor = true;
+            btnLogin.Location = new Point(127, 425);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(98, 27);
+            btnLogin.TabIndex = 10;
+            btnLogin.Text = "Login";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
             // 
             // label10
             // 
@@ -305,7 +306,9 @@
             Controls.Add(loginPanel);
             Controls.Add(label1);
             Controls.Add(registerPanel);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "AuthForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Fitness Tracking App";
             registerPanel.ResumeLayout(false);
             registerPanel.PerformLayout();
@@ -343,5 +346,6 @@
         private Label label7;
         private Label label12;
         private Label label9;
+        private Button btnLogin;
     }
 }
