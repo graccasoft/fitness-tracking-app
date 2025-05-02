@@ -4,12 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using fitness_tracking_app.Models;
+using Microsoft.Data.Sqlite;
 
 namespace fitness_tracking_app.Repositories {
     internal class BaseRepository<T> where T : BaseEntity, new() {
         private string connectionString = FitnessDatabase._connectionString;
 
         public bool save(T entity) {
+            // Set createdAt and updatedAt to the current time
+            DateTime currentTime = DateTime.UtcNow;
+            entity.CreatedAt = currentTime;
+            entity.UpdatedAt = currentTime;
+
             Dictionary<string, object> fieldValues = entity.GetFieldValues();
             string tableName = entity.GetTableName();
             string columns = string.Join(", ", fieldValues.Keys);

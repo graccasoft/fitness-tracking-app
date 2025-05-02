@@ -27,17 +27,17 @@
             registerPanel = new Panel();
             label8 = new Label();
             lblLogin = new Label();
-            button1 = new Button();
+            btnRegister = new Button();
             label6 = new Label();
-            textBox5 = new TextBox();
+            txtReTypePassword = new TextBox();
             label5 = new Label();
-            textBox4 = new TextBox();
+            txtPassword = new TextBox();
             label4 = new Label();
-            textBox3 = new TextBox();
+            txtUsername = new TextBox();
             label3 = new Label();
-            textBox2 = new TextBox();
+            txtLastName = new TextBox();
             label2 = new Label();
-            textBox1 = new TextBox();
+            txtFirstName = new TextBox();
             label1 = new Label();
             loginPanel = new Panel();
             label7 = new Label();
@@ -57,17 +57,17 @@
             // 
             registerPanel.Controls.Add(label8);
             registerPanel.Controls.Add(lblLogin);
-            registerPanel.Controls.Add(button1);
+            registerPanel.Controls.Add(btnRegister);
             registerPanel.Controls.Add(label6);
-            registerPanel.Controls.Add(textBox5);
+            registerPanel.Controls.Add(txtReTypePassword);
             registerPanel.Controls.Add(label5);
-            registerPanel.Controls.Add(textBox4);
+            registerPanel.Controls.Add(txtPassword);
             registerPanel.Controls.Add(label4);
-            registerPanel.Controls.Add(textBox3);
+            registerPanel.Controls.Add(txtUsername);
             registerPanel.Controls.Add(label3);
-            registerPanel.Controls.Add(textBox2);
+            registerPanel.Controls.Add(txtLastName);
             registerPanel.Controls.Add(label2);
-            registerPanel.Controls.Add(textBox1);
+            registerPanel.Controls.Add(txtFirstName);
             registerPanel.Location = new Point(407, 12);
             registerPanel.Name = "registerPanel";
             registerPanel.Size = new Size(348, 507);
@@ -95,14 +95,15 @@
             lblLogin.Text = "Have an account? Login";
             lblLogin.Click += lblLogin_Click;
             // 
-            // button1
+            // btnRegister
             // 
-            button1.Location = new Point(128, 425);
-            button1.Name = "button1";
-            button1.Size = new Size(98, 27);
-            button1.TabIndex = 10;
-            button1.Text = "Register";
-            button1.UseVisualStyleBackColor = true;
+            btnRegister.Location = new Point(128, 425);
+            btnRegister.Name = "btnRegister";
+            btnRegister.Size = new Size(98, 27);
+            btnRegister.TabIndex = 10;
+            btnRegister.Text = "Register";
+            btnRegister.UseVisualStyleBackColor = true;
+            btnRegister.Click += btnRegister_Click;
             // 
             // label6
             // 
@@ -113,12 +114,12 @@
             label6.TabIndex = 9;
             label6.Text = "Retype Password";
             // 
-            // textBox5
+            // txtReTypePassword
             // 
-            textBox5.Location = new Point(32, 366);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(286, 23);
-            textBox5.TabIndex = 8;
+            txtReTypePassword.Location = new Point(32, 366);
+            txtReTypePassword.Name = "txtReTypePassword";
+            txtReTypePassword.Size = new Size(286, 23);
+            txtReTypePassword.TabIndex = 8;
             // 
             // label5
             // 
@@ -129,12 +130,12 @@
             label5.TabIndex = 7;
             label5.Text = "Password";
             // 
-            // textBox4
+            // txtPassword
             // 
-            textBox4.Location = new Point(32, 295);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(286, 23);
-            textBox4.TabIndex = 6;
+            txtPassword.Location = new Point(32, 295);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(286, 23);
+            txtPassword.TabIndex = 6;
             // 
             // label4
             // 
@@ -145,12 +146,12 @@
             label4.TabIndex = 5;
             label4.Text = "Username";
             // 
-            // textBox3
+            // txtUsername
             // 
-            textBox3.Location = new Point(32, 230);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(286, 23);
-            textBox3.TabIndex = 4;
+            txtUsername.Location = new Point(32, 230);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(286, 23);
+            txtUsername.TabIndex = 4;
             // 
             // label3
             // 
@@ -161,12 +162,12 @@
             label3.TabIndex = 3;
             label3.Text = "Last name";
             // 
-            // textBox2
+            // txtLastName
             // 
-            textBox2.Location = new Point(32, 164);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(286, 23);
-            textBox2.TabIndex = 2;
+            txtLastName.Location = new Point(32, 164);
+            txtLastName.Name = "txtLastName";
+            txtLastName.Size = new Size(286, 23);
+            txtLastName.TabIndex = 2;
             // 
             // label2
             // 
@@ -177,12 +178,12 @@
             label2.TabIndex = 1;
             label2.Text = "First name";
             // 
-            // textBox1
+            // txtFirstName
             // 
-            textBox1.Location = new Point(32, 105);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(286, 23);
-            textBox1.TabIndex = 0;
+            txtFirstName.Location = new Point(32, 105);
+            txtFirstName.Name = "txtFirstName";
+            txtFirstName.Size = new Size(286, 23);
+            txtFirstName.TabIndex = 0;
             // 
             // label1
             // 
@@ -204,7 +205,7 @@
             loginPanel.Controls.Add(textBox7);
             loginPanel.Controls.Add(label11);
             loginPanel.Controls.Add(textBox8);
-            loginPanel.Location = new Point(407, 12);
+            loginPanel.Location = new Point(55, 12);
             loginPanel.Name = "loginPanel";
             loginPanel.Size = new Size(348, 507);
             loginPanel.TabIndex = 2;
@@ -323,17 +324,17 @@
         private Panel registerPanel;
         private Label label1;
         private Label lblLogin;
-        private Button button1;
+        private Button btnRegister;
         private Label label6;
-        private TextBox textBox5;
+        private TextBox txtReTypePassword;
         private Label label5;
-        private TextBox textBox4;
+        private TextBox txtPassword;
         private Label label4;
-        private TextBox textBox3;
+        private TextBox txtUsername;
         private Label label3;
-        private TextBox textBox2;
+        private TextBox txtLastName;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox txtFirstName;
         private Panel loginPanel;
         private Label lblRegister;
         private Button button2;

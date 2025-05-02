@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using fitness_tracking_app.Models;
+using fitness_tracking_app.Services;
 
 namespace fitness_tracking_app.Forms {
     public partial class AuthForm : Form {
+        private readonly AuthService authService;
         public AuthForm() {
             InitializeComponent();
+            authService = new AuthService();
         }
 
         private void lblRegister_Click(object sender, EventArgs e) {
@@ -33,7 +37,14 @@ namespace fitness_tracking_app.Forms {
             this.Hide();
         }
 
+        private void btnRegister_Click(object sender, EventArgs e) {
+            var user = new User();
+            user.FirstName = txtFirstName.Text;
+            user.LastName = txtLastName.Text;
+            user.Username = txtUsername.Text;
+            user.Password = txtPassword.Text;
 
-        
+            authService.register(user);
+        }
     }
 }

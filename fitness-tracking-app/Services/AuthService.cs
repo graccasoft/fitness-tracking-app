@@ -12,7 +12,7 @@ namespace fitness_tracking_app.Services
     {
         private readonly BaseRepository<User> repository;
 
-        AuthService()
+        public AuthService()
         {
             repository = new BaseRepository<User>();
         }
