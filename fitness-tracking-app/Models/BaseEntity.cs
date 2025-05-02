@@ -23,5 +23,18 @@ namespace fitness_tracking_app.Models {
 
             return fieldValues;
         }
+
+        public virtual void LoadFromReader(SqliteDataReader reader) {
+            Type type = this.GetType();
+            foreach (PropertyInfo property in type.GetProperties()) {
+                if (!reader.IsDBNull(reader.GetOrdinal(property.Name))) {
+                    object value = reader[property.Name];
+                    if (property.PropertyType == typeof(DateTime)) {
+                        value = DateTime.Parse(value.ToString());
+                    }
+                    property.SetValue(this, Convert.ChangeType(value, property.PropertyType));
+                }
+            }
+        }
     }
 }

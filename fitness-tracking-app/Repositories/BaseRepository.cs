@@ -7,16 +7,24 @@ using fitness_tracking_app.Models;
 
 namespace fitness_tracking_app.Repositories {
     internal class BaseRepository<T> where T : BaseEntity, new() {
-        private string connectionString = "";
+        private string connectionString = FitnessDatabase._connectionString;
 
         public bool save(T entity) {
-            Dictionary<string, object> filedValues = entity.GetFieldValues();
+            Dictionary<string, object> fieldValues = entity.GetFieldValues();
             string tableName = entity.GetTableName();
-            string columns = string.Join(", ", filedValues.Keys);
-            string values = string.Join(", ", filedValues.Values.Select(v => $"'{v}'"));
+            string columns = string.Join(", ", fieldValues.Keys);
+            string values = string.Join(", ", fieldValues.Values.Select(v => $"'{v}'"));
 
             string query = $"INSERT INTO {tableName} ({columns}) VALUES ({values})";
-            Console.WriteLine(query);
+
+            using (var connection = new SqliteConnection(connectionString)) {
+                connection.Open();
+                using (var command = connection.CreateCommand()) {
+                    command.CommandText = query;
+                    command.ExecuteNonQuery();
+                }
+            }
+
             return true;
         }
 
@@ -24,7 +32,20 @@ namespace fitness_tracking_app.Repositories {
             T entity = null;
             string tableName = new T().GetTableName();
             string query = $"SELECT * FROM {tableName} WHERE id = {id}";
-            Console.WriteLine(query);
+
+            using (var connection = new SqliteConnection(connectionString)) {
+                connection.Open();
+                using (var command = connection.CreateCommand()) {
+                    command.CommandText = query;
+                    using (var reader = command.ExecuteReader()) {
+                        if (reader.Read()) {
+                            entity = new T();
+                            entity.LoadFromReader(reader);
+                        }
+                    }
+                }
+            }
+
             return entity;
         }
 
@@ -32,16 +53,43 @@ namespace fitness_tracking_app.Repositories {
             T entity = null;
             string tableName = new T().GetTableName();
             string query = $"SELECT * FROM {tableName} {where}";
-            Console.WriteLine(query);
+
+            using (var connection = new SqliteConnection(connectionString)) {
+                connection.Open();
+                using (var command = connection.CreateCommand()) {
+                    command.CommandText = query;
+                    using (var reader = command.ExecuteReader()) {
+                        if (reader.Read()) {
+                            entity = new T();
+                            entity.LoadFromReader(reader);
+                        }
+                    }
+                }
+            }
+
             return entity;
         }
 
-
         public List<T> getAll() {
+            List<T> entities = new List<T>();
             string tableName = new T().GetTableName();
             string query = $"SELECT * FROM {tableName}";
 
-            return null;
+            using (var connection = new SqliteConnection(connectionString)) {
+                connection.Open();
+                using (var command = connection.CreateCommand()) {
+                    command.CommandText = query;
+                    using (var reader = command.ExecuteReader()) {
+                        while (reader.Read()) {
+                            T entity = new T();
+                            entity.LoadFromReader(reader);
+                            entities.Add(entity);
+                        }
+                    }
+                }
+            }
+
+            return entities;
         }
     }
 }

@@ -6,25 +6,40 @@ using System.Threading.Tasks;
 using fitness_tracking_app.Models;
 using fitness_tracking_app.Repositories;
 
-namespace fitness_tracking_app.Services {
-    internal class AuthService {
+namespace fitness_tracking_app.Services
+{
+    internal class AuthService
+    {
         private readonly BaseRepository<User> repository;
 
-        AuthService() {
+        AuthService()
+        {
             repository = new BaseRepository<User>();
         }
 
-        public User authenticate(User user) {
+        public User authenticate(User user)
+        {
+            String whereClause = $"WHERE Username = '{user.Username}' AND Password = '{user.Password}'";
 
-            return null;
+            User authenticatedUser = repository.customQueryGet(whereClause);
+
+            if (authenticatedUser == null)
+            {
+                Notifications.warn("Invalid username or password");
+            }
+
+            return authenticatedUser;
         }
 
-        public User register(User user) {
-            if (!Validator.isValidUsername(user.Username)) {
+        public User register(User user)
+        {
+            if (!Validator.isValidUsername(user.Username))
+            {
                 Notifications.warn("Username is not valid");
                 return null;
             }
-            if (!Validator.isValidPassword(user.Password)) {
+            if (!Validator.isValidPassword(user.Password))
+            {
                 Notifications.warn("Password is not valid");
                 return null;
             }

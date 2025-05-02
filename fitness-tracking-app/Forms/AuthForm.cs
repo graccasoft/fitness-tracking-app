@@ -32,5 +32,8 @@ namespace fitness_tracking_app.Forms {
             mainForm.Show();
             this.Hide();
         }
+
+
+        
     }
 }
