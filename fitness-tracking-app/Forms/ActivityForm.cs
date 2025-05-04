@@ -9,13 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace fitness_tracking_app.Forms {
-    public partial class GoalsForm : Form {
-        public GoalsForm() {
+    public partial class ActivityForm : Form {
+        public ActivityForm() {
             InitializeComponent();
         }
 
-        private void btnGoal_Click(object sender, EventArgs e) {
+        private void label1_Click(object sender, EventArgs e) {
 
+        }
+
+        private void ActivityForm_Load(object sender, EventArgs e) {
+           
         }
     }
 }

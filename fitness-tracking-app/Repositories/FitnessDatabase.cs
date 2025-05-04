@@ -74,6 +74,35 @@ namespace fitness_tracking_app.Repositories {
 
 
                 // Insert default metris if empty
+                command.CommandText = "SELECT COUNT(*) FROM activity_metrics";
+                var count = Convert.ToInt64(command.ExecuteScalar());
+
+                if (count == 0) {
+                    // Insert the 6 default activity metrics with formulas
+                    command.CommandText = @"
+                INSERT INTO activity_metrics 
+                (Activity, Metric1, Metric1Formulae, Metric2, Metric2Formulae, Metric3, Metric3Formulae, CreatedAt, UpdatedAt)
+                VALUES
+                -- Walking (provided by you)
+                ('Walking', 'steps', 'x * 0.04', 'distance', 'x * 60', 'time taken', 'x * 80', datetime('now'), datetime('now')),
+                
+                -- Swimming (provided by you)
+                ('Swimming', 'number of laps', 'x * 5', 'time taken', 'x * 8.3', 'average heart rate', '(x - 60) * x * 0.12', datetime('now'), datetime('now')),
+                
+                -- Running
+                ('Running', 'distance', 'x * 100', 'time taken', 'x * 11.5', 'average speed', '(x * 0.0175)/200', datetime('now'), datetime('now')),
+                
+                -- Cycling
+                ('Cycling', 'distance', 'x * 35', 'time taken', 'x * 7.5', 'average speed', 'x * 0.000025)', datetime('now'), datetime('now')),
+                
+                -- Basketball
+                ('Basketball', 'time played', 'x * 8', 'jumps', 'jumps * 0.2', 'heart rate', '(x - 60) * x * 0.1', datetime('now'), datetime('now')),
+                
+                -- Yoga
+                ('Yoga', 'time practiced', 'x * 3.5', 'difficulty level', 'x * x * 0.8', 'heart rate', ' x * 0.05', datetime('now'), datetime('now'))
+                ";
+                    command.ExecuteNonQuery();
+                }
             }
         }
     }

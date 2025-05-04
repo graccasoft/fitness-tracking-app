@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace fitness_tracking_app.Forms {
-    public partial class GoalsForm : Form {
-        public GoalsForm() {
+    public partial class ReportForm : Form {
+        public ReportForm() {
             InitializeComponent();
         }
 
-        private void btnGoal_Click(object sender, EventArgs e) {
-
+        private void ReportForm_Load(object sender, EventArgs e) {
+            //lvActivities
+            //lblCarloriesBurned.Text = "Total Calories Burned: ";
+            //lblTargetStatus.Text = "Target Status: ";
         }
     }
 }

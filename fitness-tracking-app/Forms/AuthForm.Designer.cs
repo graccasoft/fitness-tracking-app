@@ -38,15 +38,15 @@
             txtLastName = new TextBox();
             label2 = new Label();
             txtFirstName = new TextBox();
-            label1 = new Label();
             loginPanel = new Panel();
             label7 = new Label();
             lblRegister = new Label();
             btnLogin = new Button();
             label10 = new Label();
-            textBox7 = new TextBox();
+            txtLoginPassword = new TextBox();
             label11 = new Label();
-            textBox8 = new TextBox();
+            txtLoginUsername = new TextBox();
+            label1 = new Label();
             label12 = new Label();
             label9 = new Label();
             registerPanel.SuspendLayout();
@@ -185,27 +185,16 @@
             txtFirstName.Size = new Size(286, 23);
             txtFirstName.TabIndex = 0;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(77, 83);
-            label1.Name = "label1";
-            label1.Size = new Size(216, 30);
-            label1.TabIndex = 1;
-            label1.Text = "Fitness Tracking App";
-            // 
             // loginPanel
             // 
             loginPanel.Controls.Add(label7);
             loginPanel.Controls.Add(lblRegister);
             loginPanel.Controls.Add(btnLogin);
             loginPanel.Controls.Add(label10);
-            loginPanel.Controls.Add(textBox7);
+            loginPanel.Controls.Add(txtLoginPassword);
             loginPanel.Controls.Add(label11);
-            loginPanel.Controls.Add(textBox8);
-            loginPanel.Location = new Point(55, 12);
+            loginPanel.Controls.Add(txtLoginUsername);
+            loginPanel.Location = new Point(407, 12);
             loginPanel.Name = "loginPanel";
             loginPanel.Size = new Size(348, 507);
             loginPanel.TabIndex = 2;
@@ -250,12 +239,12 @@
             label10.TabIndex = 7;
             label10.Text = "Password";
             // 
-            // textBox7
+            // txtLoginPassword
             // 
-            textBox7.Location = new Point(32, 173);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(286, 23);
-            textBox7.TabIndex = 6;
+            txtLoginPassword.Location = new Point(32, 173);
+            txtLoginPassword.Name = "txtLoginPassword";
+            txtLoginPassword.Size = new Size(286, 23);
+            txtLoginPassword.TabIndex = 6;
             // 
             // label11
             // 
@@ -266,12 +255,23 @@
             label11.TabIndex = 5;
             label11.Text = "Username";
             // 
-            // textBox8
+            // txtLoginUsername
             // 
-            textBox8.Location = new Point(32, 105);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(286, 23);
-            textBox8.TabIndex = 4;
+            txtLoginUsername.Location = new Point(32, 105);
+            txtLoginUsername.Name = "txtLoginUsername";
+            txtLoginUsername.Size = new Size(286, 23);
+            txtLoginUsername.TabIndex = 4;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(77, 83);
+            label1.Name = "label1";
+            label1.Size = new Size(216, 30);
+            label1.TabIndex = 1;
+            label1.Text = "Fitness Tracking App";
             // 
             // label12
             // 
@@ -302,9 +302,9 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(779, 531);
+            Controls.Add(loginPanel);
             Controls.Add(label9);
             Controls.Add(label12);
-            Controls.Add(loginPanel);
             Controls.Add(label1);
             Controls.Add(registerPanel);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -340,9 +340,9 @@
         private Button button2;
         private TextBox textBox6;
         private Label label10;
-        private TextBox textBox7;
+        private TextBox txtLoginPassword;
         private Label label11;
-        private TextBox textBox8;
+        private TextBox txtLoginUsername;
         private Label label8;
         private Label label7;
         private Label label12;

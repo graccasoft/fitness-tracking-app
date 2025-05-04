@@ -16,7 +16,13 @@ namespace fitness_tracking_app.Repositories {
             entity.CreatedAt = currentTime;
             entity.UpdatedAt = currentTime;
 
+
+
             Dictionary<string, object> fieldValues = entity.GetFieldValues();
+            if (fieldValues.ContainsKey("id")) {
+                fieldValues.Remove("id"); // Exclude the id field so the db engine can use auto increment
+            }
+
             string tableName = entity.GetTableName();
             string columns = string.Join(", ", fieldValues.Keys);
             string values = string.Join(", ", fieldValues.Values.Select(v => $"'{v}'"));

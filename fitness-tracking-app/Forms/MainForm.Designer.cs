@@ -53,6 +53,7 @@
             btnMyProgress.TabIndex = 3;
             btnMyProgress.Text = "My Progress";
             btnMyProgress.UseVisualStyleBackColor = true;
+            btnMyProgress.Click += btnMyProgress_Click;
             // 
             // btnActivityTracker
             // 
@@ -64,6 +65,7 @@
             btnActivityTracker.TabIndex = 2;
             btnActivityTracker.Text = "Activity Tracker";
             btnActivityTracker.UseVisualStyleBackColor = true;
+            btnActivityTracker.Click += btnActivityTracker_Click;
             // 
             // label1
             // 
@@ -85,14 +87,14 @@
             btnMyGoals.TabIndex = 0;
             btnMyGoals.Text = "My Goals";
             btnMyGoals.UseVisualStyleBackColor = true;
-            btnMyGoals.Click += button1_Click;
+            btnMyGoals.Click += btnMyGoals_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(917, 600);
+            ClientSize = new Size(937, 600);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             IsMdiContainer = true;
