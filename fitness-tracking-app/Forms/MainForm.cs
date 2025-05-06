@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace fitness_tracking_app.Forms {
     public partial class MainForm : Form {
+        public static int userId;
         public MainForm() {
             InitializeComponent();
             this.FormClosed += MainForm_FormClosed;

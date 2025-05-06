@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using fitness_tracking_app.Models;
 using Microsoft.Data.Sqlite;
 
-namespace fitness_tracking_app.Repositories {
-    internal class BaseRepository<T> where T : BaseEntity, new() {
+namespace fitness_tracking_app.Repositories
+{
+    internal class BaseRepository<T> where T : BaseEntity, new()
+    {
         private string connectionString = FitnessDatabase._connectionString;
 
-        public bool save(T entity) {
+        public bool save(T entity)
+        {
             // Set createdAt and updatedAt to the current time
             DateTime currentTime = DateTime.UtcNow;
             entity.CreatedAt = currentTime;
@@ -19,7 +22,8 @@ namespace fitness_tracking_app.Repositories {
 
 
             Dictionary<string, object> fieldValues = entity.GetFieldValues();
-            if (fieldValues.ContainsKey("id")) {
+            if (fieldValues.ContainsKey("id"))
+            {
                 fieldValues.Remove("id"); // Exclude the id field so the db engine can use auto increment
             }
 
@@ -29,9 +33,11 @@ namespace fitness_tracking_app.Repositories {
 
             string query = $"INSERT INTO {tableName} ({columns}) VALUES ({values})";
 
-            using (var connection = new SqliteConnection(connectionString)) {
+            using (var connection = new SqliteConnection(connectionString))
+            {
                 connection.Open();
-                using (var command = connection.CreateCommand()) {
+                using (var command = connection.CreateCommand())
+                {
                     command.CommandText = query;
                     command.ExecuteNonQuery();
                 }
@@ -40,17 +46,22 @@ namespace fitness_tracking_app.Repositories {
             return true;
         }
 
-        public T get(int id) {
+        public T get(int id)
+        {
             T entity = null;
             string tableName = new T().GetTableName();
             string query = $"SELECT * FROM {tableName} WHERE id = {id}";
 
-            using (var connection = new SqliteConnection(connectionString)) {
+            using (var connection = new SqliteConnection(connectionString))
+            {
                 connection.Open();
-                using (var command = connection.CreateCommand()) {
+                using (var command = connection.CreateCommand())
+                {
                     command.CommandText = query;
-                    using (var reader = command.ExecuteReader()) {
-                        if (reader.Read()) {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
                             entity = new T();
                             entity.LoadFromReader(reader);
                         }
@@ -61,17 +72,22 @@ namespace fitness_tracking_app.Repositories {
             return entity;
         }
 
-        public T customQueryGet(string where) {
+        public T customQueryGet(string where)
+        {
             T entity = null;
             string tableName = new T().GetTableName();
             string query = $"SELECT * FROM {tableName} {where}";
 
-            using (var connection = new SqliteConnection(connectionString)) {
+            using (var connection = new SqliteConnection(connectionString))
+            {
                 connection.Open();
-                using (var command = connection.CreateCommand()) {
+                using (var command = connection.CreateCommand())
+                {
                     command.CommandText = query;
-                    using (var reader = command.ExecuteReader()) {
-                        if (reader.Read()) {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
                             entity = new T();
                             entity.LoadFromReader(reader);
                         }
@@ -82,17 +98,22 @@ namespace fitness_tracking_app.Repositories {
             return entity;
         }
 
-        public List<T> getAll() {
+        public List<T> getAll()
+        {
             List<T> entities = new List<T>();
             string tableName = new T().GetTableName();
             string query = $"SELECT * FROM {tableName}";
 
-            using (var connection = new SqliteConnection(connectionString)) {
+            using (var connection = new SqliteConnection(connectionString))
+            {
                 connection.Open();
-                using (var command = connection.CreateCommand()) {
+                using (var command = connection.CreateCommand())
+                {
                     command.CommandText = query;
-                    using (var reader = command.ExecuteReader()) {
-                        while (reader.Read()) {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
                             T entity = new T();
                             entity.LoadFromReader(reader);
                             entities.Add(entity);
@@ -103,5 +124,28 @@ namespace fitness_tracking_app.Repositories {
 
             return entities;
         }
+        public bool update(T entity)
+        {
+            Dictionary<string, object> fieldValues = entity.GetFieldValues();
+            string tableName = entity.GetTableName();
+
+            fieldValues.Remove("Id");
+
+            string setClause = string.Join(", ", fieldValues.Select(kv => $"{kv.Key} = '{kv.Value}'"));
+
+            string query = $"UPDATE {tableName} SET {setClause} WHERE Id = {entity.Id}";
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
     }
 }

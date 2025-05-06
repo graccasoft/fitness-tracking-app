@@ -34,5 +34,23 @@ namespace fitness_tracking_app.Forms {
             }
 
         }
+
+        private void saveActivity(){
+            //validate inputs: must be numeric, greater than 0, less than 9999999 : txtMetric1, txtMetric2, txtMetric3
+            if (!Validator.isNumeric(txtMetric1.Text) || !Validator.isNumeric(txtMetric2.Text) || !Validator.isNumeric(txtMetric3.Text)) {
+                Notifications.warn("Metrics must be numbers");
+                return;
+            }
+            if (Convert.ToDecimal(txtMetric1.Text) < 0 || Convert.ToDecimal(txtMetric2.Text) < 0 || Convert.ToDecimal(txtMetric3.Text) < 0) {
+                Notifications.warn("Metrics cannot be negative");
+                return;
+            }
+            if (Convert.ToDecimal(txtMetric1.Text) > 9999999 || Convert.ToDecimal(txtMetric2.Text) > 9999999 || Convert.ToDecimal(txtMetric3.Text) > 9999999) {
+                Notifications.warn("Metrics exceed reasonable limits");
+                return;
+            }
+        }
+
+
     }
 }
