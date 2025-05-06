@@ -44,6 +44,10 @@ namespace fitness_tracking_app.Services {
             return false;
         }
 
+        public static Boolean isNumeric(String input) {
+            return input.All(char.IsDigit);
+        }
+
 
     }
 }

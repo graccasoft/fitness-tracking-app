@@ -35,16 +35,21 @@ namespace fitness_tracking_app.Services
         {
             if (!Validator.isValidUsername(user.Username))
             {
-                Notifications.warn("Username is not valid");
+                Notifications.warn("Username is not valid.\nUsername must contain letters and underscores only");
                 return null;
             }
             if (!Validator.isValidPassword(user.Password))
             {
-                Notifications.warn("Password is not valid");
+                Notifications.warn("Password is not valid.\nPassword must contain at least 1 lowercase, uppercase and a digit.");
                 return null;
             }
-
+            var existingUser = repository.customQueryGet($"WHERE Username = '{user.Username}'");
+            if(existingUser != null) {
+                Notifications.warn("Username already exists");
+                return null;
+            }
             repository.save(user);
+            Notifications.info("User registered successfully");
 
             return user;
         }
