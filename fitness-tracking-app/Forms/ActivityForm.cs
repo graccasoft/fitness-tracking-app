@@ -28,15 +28,25 @@ namespace fitness_tracking_app.Forms {
         }
 
         private void ActivityForm_Load(object sender, EventArgs e) {
-            //load activities in combobox
-            foreach (var activity in activityMetrics) {
-                cmbActivities.Items.Add(activity.Activity);
-            }
+            cmbActivities.DisplayMember = "Activity";
+            cmbActivities.DataSource = activityMetrics;
 
         }
+        private void cmbActivities_SelectedIndexChanged(object sender, EventArgs e) {
+            var selectedActivity = cmbActivities.SelectedItem as ActivityMetric;
 
-        private void saveActivity(){
-            //validate inputs: must be numeric, greater than 0, less than 9999999 : txtMetric1, txtMetric2, txtMetric3
+            if (selectedActivity != null) {
+                lblMetric1.Text = selectedActivity.Metric1;
+                lblMetric2.Text = selectedActivity.Metric2;
+                lblMetric3.Text = selectedActivity.Metric3;
+            }
+        }
+
+        private void btnSaveActivity_Click(object sender, EventArgs e) {
+            if (txtMetric1.Text.Length == 0 || txtMetric2.Text.Length == 0 || txtMetric3.Text.Length == 0 ) {
+                Notifications.warn("Enter all metrics, use 0 if not achieved");
+                return;
+            }
             if (!Validator.isNumeric(txtMetric1.Text) || !Validator.isNumeric(txtMetric2.Text) || !Validator.isNumeric(txtMetric3.Text)) {
                 Notifications.warn("Metrics must be numbers");
                 return;
@@ -49,8 +59,33 @@ namespace fitness_tracking_app.Forms {
                 Notifications.warn("Metrics exceed reasonable limits");
                 return;
             }
+
+            var selectedActivity = cmbActivities.SelectedItem as ActivityMetric;
+            //save UserActivity record
+            var userActivity = new UserActivity();
+            userActivity.UserId = MainForm.userId;
+            userActivity.MetricId = selectedActivity.Id;
+
+            if (Convert.ToDouble(txtMetric1.Text) > 0) {
+                userActivity.Metric = "metric1";
+                userActivity.Value = Convert.ToDouble(txtMetric1.Text);
+                activityService.save(userActivity);
+                Notifications.info("Activity saved successfully");
+            }
+
+            if (Convert.ToDouble(txtMetric2.Text) > 0) {
+                userActivity.Metric = "metric2";
+                userActivity.Value = Convert.ToDouble(txtMetric2.Text);
+                activityService.save(userActivity);
+                Notifications.info("Activity saved successfully");
+            }
+            if (Convert.ToDouble(txtMetric1.Text) > 0) {
+                userActivity.Metric = "metric3";
+                userActivity.Value = Convert.ToDouble(txtMetric3.Text);
+                activityService.save(userActivity);
+                Notifications.info("Activity saved successfully");
+            }
+
         }
-
-
     }
 }

@@ -65,6 +65,7 @@
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "GoalsForm";
             Text = "Set Goal";
+            Load += GoalsForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

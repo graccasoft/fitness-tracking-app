@@ -32,19 +32,34 @@ namespace fitness_tracking_app.Forms {
         }
 
         private void btnLogin_Click(object sender, EventArgs e) {
+            User user = authService.authenticate(new User() {
+                Username = txtLoginUsername.Text,
+                Password = txtLoginPassword.Text
+            });
+            if (user == null) {
+                Notifications.warn("Invalid username or password");
+                return;
+            }
             var mainForm = new MainForm();
+            MainForm.userId = user.Id;
             mainForm.Show();
             this.Hide();
         }
 
         private void btnRegister_Click(object sender, EventArgs e) {
+
+
             var user = new User();
             user.FirstName = txtFirstName.Text;
             user.LastName = txtLastName.Text;
             user.Username = txtUsername.Text;
             user.Password = txtPassword.Text;
+            var savedUser = authService.register(user);
 
-            authService.register(user);
+            if (savedUser != null) {
+                Notifications.info("User registered successfully");
+                togglePanels();
+            }
         }
     }
 }

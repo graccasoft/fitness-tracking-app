@@ -113,11 +113,13 @@
             // 
             // cmbActivities
             // 
+            cmbActivities.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbActivities.FormattingEnabled = true;
             cmbActivities.Location = new Point(13, 44);
             cmbActivities.Name = "cmbActivities";
             cmbActivities.Size = new Size(380, 23);
             cmbActivities.TabIndex = 1;
+            cmbActivities.SelectedIndexChanged += cmbActivities_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -137,6 +139,7 @@
             btnSaveActivity.TabIndex = 8;
             btnSaveActivity.Text = "Save Activity";
             btnSaveActivity.UseVisualStyleBackColor = true;
+            btnSaveActivity.Click += btnSaveActivity_Click;
             // 
             // btnCancel
             // 

@@ -118,6 +118,7 @@
             // 
             txtReTypePassword.Location = new Point(32, 366);
             txtReTypePassword.Name = "txtReTypePassword";
+            txtReTypePassword.PasswordChar = '*';
             txtReTypePassword.Size = new Size(286, 23);
             txtReTypePassword.TabIndex = 8;
             // 
@@ -134,6 +135,7 @@
             // 
             txtPassword.Location = new Point(32, 295);
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(286, 23);
             txtPassword.TabIndex = 6;
             // 
@@ -243,6 +245,7 @@
             // 
             txtLoginPassword.Location = new Point(32, 173);
             txtLoginPassword.Name = "txtLoginPassword";
+            txtLoginPassword.PasswordChar = '*';
             txtLoginPassword.Size = new Size(286, 23);
             txtLoginPassword.TabIndex = 6;
             // 

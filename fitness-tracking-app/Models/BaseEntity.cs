@@ -33,6 +33,12 @@ namespace fitness_tracking_app.Models {
                     if (property.PropertyType == typeof(DateTime)) {
                         value = DateTime.Parse(value.ToString());
                     }
+                    if (property.PropertyType == typeof(Gender)) {
+                        if (value == "MALE") {
+                            value = Gender.MALE;
+                        }
+                        value = Gender.FEMALE;
+                    }
                     property.SetValue(this, Convert.ChangeType(value, property.PropertyType));
                 }
             }
