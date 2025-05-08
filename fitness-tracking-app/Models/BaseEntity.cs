@@ -44,4 +44,6 @@ namespace fitness_tracking_app.Models {
             }
         }
     }
+
+    
 }

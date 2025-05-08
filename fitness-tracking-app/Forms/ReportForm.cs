@@ -10,14 +10,79 @@ using System.Windows.Forms;
 
 namespace fitness_tracking_app.Forms {
     public partial class ReportForm : Form {
+        private readonly ActivityService activityService;
+        private readonly GoalService goalService;
+        double totalCaloriesBurned = 0;
+        double targetCalories = 0;
+        private UserGoal userGoal;
         public ReportForm() {
             InitializeComponent();
+            activityService = new ActivityService();
+            goalService = new GoalService();
+            
         }
 
         private void ReportForm_Load(object sender, EventArgs e) {
-            //lvActivities
-            //lblCarloriesBurned.Text = "Total Calories Burned: ";
-            //lblTargetStatus.Text = "Target Status: ";
+            
+            userGoal = goalService.FetchUserGoal();
+            this.ConfigureListView();
+            this.PopulateActivitiesListView();
+        }
+
+        private void ConfigureListView()
+        {
+            lvActivities.View = View.Details;
+            lvActivities.FullRowSelect = true;
+            lvActivities.GridLines = true;
+            lvActivities.BorderStyle = BorderStyle.FixedSingle;
+            lvActivities.Columns.Add("ID", 50);
+            lvActivities.Columns.Add("Created At", 150);
+            lvActivities.Columns.Add("Activity", 100);
+            lvActivities.Columns.Add("Activity Metric", 100);
+            lvActivities.Columns.Add("Value", 100);
+            lvActivities.Columns.Add("Calories", 100);
+        }
+
+        private void PopulateActivitiesListView()
+        {
+            lvActivities.Items.Clear();
+            totalCaloriesBurned = 0;
+            var activities = activityService.GetUserActivityViewByUserId(MainForm.userId); 
+
+            foreach (var activity in activities)
+            {
+                var listItem = new ListViewItem(activity.Id.ToString());
+                listItem.SubItems.Add(activity.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
+                listItem.SubItems.Add(activity.Activity.ToString());
+                listItem.SubItems.Add(activity.ActivityMetric.ToString());
+                listItem.SubItems.Add(activity.Value.ToString());
+                listItem.SubItems.Add(activity.Calories.ToString("F2"));
+
+                lvActivities.Items.Add(listItem);
+                totalCaloriesBurned += activity.Calories;
+            }
+
+            lblCaloriesBurned.Text = $"Total Calories Burned: {totalCaloriesBurned}";
+            if (userGoal != null)
+            {
+                targetCalories = userGoal.Goal;
+                lblTargetStatus.Text = $"Target Status: {totalCaloriesBurned}/{targetCalories}";
+
+                if (totalCaloriesBurned >= targetCalories)
+                {
+                    lblTargetStatus.ForeColor = Color.Green;
+                    lblTargetStatus.Text += " - Target Achieved!";
+                }
+                else
+                {
+                    lblTargetStatus.ForeColor = Color.Red;
+                    lblTargetStatus.Text += " - Target Not Achieved!";
+                }
+            }
+            else
+            {
+                lblTargetStatus.Text = "No target set.";
+            }
         }
     }
 }

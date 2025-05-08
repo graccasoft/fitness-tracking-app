@@ -19,12 +19,10 @@ namespace fitness_tracking_app.Repositories
             entity.CreatedAt = currentTime;
             entity.UpdatedAt = currentTime;
 
-
-
             Dictionary<string, object> fieldValues = entity.GetFieldValues();
-            if (fieldValues.ContainsKey("id"))
+            if (!fieldValues.ContainsKey("id") || fieldValues["id"] == null || (int)fieldValues["id"] == 0)
             {
-                fieldValues.Remove("id"); // Exclude the id field so the db engine can use auto increment
+                fieldValues["id"] = GetNextId();
             }
 
             string tableName = entity.GetTableName();
@@ -124,6 +122,33 @@ namespace fitness_tracking_app.Repositories
 
             return entities;
         }
+
+        public List<T> getAllWhere(string where)
+        {
+            List<T> entities = new List<T>();
+            string tableName = new T().GetTableName();
+            string query = $"SELECT * FROM {tableName} {where}";
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            T entity = new T();
+                            entity.LoadFromReader(reader);
+                            entities.Add(entity);
+                        }
+                    }
+                }
+            }
+
+            return entities;
+        }
         public bool update(T entity)
         {
             Dictionary<string, object> fieldValues = entity.GetFieldValues();
@@ -147,5 +172,27 @@ namespace fitness_tracking_app.Repositories
             }
         }
 
+        private int GetNextId()
+        {
+            int nextId = 1;
+            string tableName = new T().GetTableName();
+            string query = $"SELECT MAX(id) FROM {tableName}";
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    var result = command.ExecuteScalar();
+                    if (result != DBNull.Value && result != null)
+                    {
+                        nextId = Convert.ToInt32(result) + 1;
+                    }
+                }
+            }
+
+            return nextId;
+        }
     }
 }

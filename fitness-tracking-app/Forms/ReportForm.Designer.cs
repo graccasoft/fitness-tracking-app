@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             lvActivities = new ListView();
-            lblCarloriesBurned = new Label();
+            lblCaloriesBurned = new Label();
             lblTargetStatus = new Label();
             SuspendLayout();
             // 
@@ -36,15 +36,15 @@
             lvActivities.TabIndex = 1;
             lvActivities.UseCompatibleStateImageBehavior = false;
             // 
-            // lblCarloriesBurned
+            // lblCaloriesBurned
             // 
-            lblCarloriesBurned.AutoSize = true;
-            lblCarloriesBurned.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCarloriesBurned.Location = new Point(12, 30);
-            lblCarloriesBurned.Name = "lblCarloriesBurned";
-            lblCarloriesBurned.Size = new Size(172, 21);
-            lblCarloriesBurned.TabIndex = 2;
-            lblCarloriesBurned.Text = "Total Calories burned";
+            lblCaloriesBurned.AutoSize = true;
+            lblCaloriesBurned.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCaloriesBurned.Location = new Point(12, 30);
+            lblCaloriesBurned.Name = "lblCaloriesBurned";
+            lblCaloriesBurned.Size = new Size(172, 21);
+            lblCaloriesBurned.TabIndex = 2;
+            lblCaloriesBurned.Text = "Total Calories burned";
             // 
             // lblTargetStatus
             // 
@@ -62,7 +62,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(607, 306);
             Controls.Add(lblTargetStatus);
-            Controls.Add(lblCarloriesBurned);
+            Controls.Add(lblCaloriesBurned);
             Controls.Add(lvActivities);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "ReportForm";
@@ -75,7 +75,7 @@
         #endregion
 
         private ListView lvActivities;
-        private Label lblCarloriesBurned;
+        private Label lblCaloriesBurned;
         private Label lblTargetStatus;
     }
 }
