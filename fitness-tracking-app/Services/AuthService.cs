@@ -21,7 +21,7 @@ namespace fitness_tracking_app.Services
         {
             String whereClause = $"WHERE Username = '{user.Username}' AND Password = '{user.Password}'";
 
-            User authenticatedUser = repository.customQueryGet(whereClause);
+            User authenticatedUser = repository.GetWhere(whereClause);
             return authenticatedUser;
         }
 
@@ -35,12 +35,12 @@ namespace fitness_tracking_app.Services
                 Notifications.warn("Password is not valid.\nPassword must contain at least 1 lowercase, uppercase and a digit.");
                 return null;
             }
-            var existingUser = repository.customQueryGet($"WHERE Username = '{user.Username}'");
+            var existingUser = repository.GetWhere($"WHERE Username = '{user.Username}'");
             if (existingUser != null) {
                 Notifications.warn("Username already exists");
                 return null;
             }
-            repository.save(user);
+            repository.Save(user);
             
 
             return user;

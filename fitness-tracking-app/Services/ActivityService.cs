@@ -23,21 +23,21 @@ namespace fitness_tracking_app.Services
 
         public List<ActivityMetric> GetActivityMetricList()
         {
-            return metricRepository.getAll();
+            return metricRepository.GetAll();
         }
 
         public void save(UserActivity userActivity)
         {
-            activityRepository.save(userActivity);
+            activityRepository.Save(userActivity);
         }
 
         public List<UserActivityView> GetUserActivityViewByUserId(int userId)
         {
             // Fetch all user activities for the given userId
-            var userActivities = activityRepository.getAllWhere($"WHERE UserId = {userId}");
+            var userActivities = activityRepository.GetAllWhere($"WHERE UserId = {userId}");
 
             // Fetch all activity metrics
-            var activityMetrics = metricRepository.getAll();
+            var activityMetrics = metricRepository.GetAll();
 
             // Join user activities with activity metrics and map to UserActivityView
             var result = (from ua in userActivities
@@ -46,10 +46,15 @@ namespace fitness_tracking_app.Services
                           {
                               Id = ua.Id,
                               CreatedAt = ua.CreatedAt,
-                              Activity = ua.MetricId,
-                              ActivityMetric = am.Id,
+                              Activity = am.Activity,
+                              ActivityMetric = ua.Metric switch {
+                                  "metric1" => am.Metric1,
+                                  "metric2" => am.Metric2,
+                                  "metric3" => am.Metric3,
+                                  _ => throw new ArgumentException("Invalid metric type")
+                              }  ,
                               Value = ua.Value,
-                              Calories = CalculateCalories(ua, am) // Example calculation
+                              Calories = CalculateCalories(ua, am)
                           }).ToList();
 
             return result;
@@ -57,31 +62,24 @@ namespace fitness_tracking_app.Services
 
         private double CalculateCalories(UserActivity activity, ActivityMetric activityMetric)
         {
-            if (activity.Metric == "metric1")
-            {
-                formula = activityMetric.Metric1Formulae;
-            }
-            else if (activity.Metric == "metric2")
-            {
-                formula = activityMetric.Metric2Formulae;
-            }
-            else if (activity.Metric == "metric3")
-            {
-                formula = activityMetric.Metric3Formulae;
-            }
+
+            string formula = activity.Metric switch {
+                "metric1" => activityMetric.Metric1Formulae,
+                "metric2" => activityMetric.Metric2Formulae,
+                "metric3" => activityMetric.Metric3Formulae,
+                _ => throw new ArgumentException("Invalid metric type")
+            };
 
             formula = formula.Replace("x", activity.Value.ToString());
-            try
-            {
-                using (var dataTable = new System.Data.DataTable())
-                {
+
+            try {
+                using (var dataTable = new System.Data.DataTable()) {
                     var result = dataTable.Compute(formula, string.Empty);
                     return Convert.ToDouble(result);
                 }
             }
-            catch
-            {
-                throw 0;
+            catch {
+                throw new InvalidOperationException("Failed to evaluate the formula.");
             }
         }
     }

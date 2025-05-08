@@ -9,8 +9,8 @@ namespace fitness_tracking_app.Models {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public int Activity { get; set; }
-        public int ActivityMetric { get; set; }
+        public required string Activity { get; set; }
+        public required string ActivityMetric { get; set; }
         public double Value { get; set; }
         public double Calories { get; set; }
 

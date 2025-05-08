@@ -29,11 +29,13 @@
             btnActivityTracker = new Button();
             label1 = new Label();
             btnMyGoals = new Button();
+            lblUsername = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.Controls.Add(lblUsername);
             panel1.Controls.Add(btnMyProgress);
             panel1.Controls.Add(btnActivityTracker);
             panel1.Controls.Add(label1);
@@ -89,6 +91,15 @@
             btnMyGoals.UseVisualStyleBackColor = true;
             btnMyGoals.Click += btnMyGoals_Click;
             // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.Location = new Point(21, 57);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(22, 15);
+            lblUsername.TabIndex = 4;
+            lblUsername.Text = "Hi,";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -113,5 +124,6 @@
         private Button btnMyGoals;
         private Button btnMyProgress;
         private Button btnActivityTracker;
+        public Label lblUsername;
     }
 }

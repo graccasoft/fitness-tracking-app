@@ -12,7 +12,7 @@ namespace fitness_tracking_app.Repositories
     {
         private string connectionString = FitnessDatabase._connectionString;
 
-        public bool save(T entity)
+        public bool Save(T entity)
         {
             // Set createdAt and updatedAt to the current time
             DateTime currentTime = DateTime.UtcNow;
@@ -44,7 +44,7 @@ namespace fitness_tracking_app.Repositories
             return true;
         }
 
-        public T get(int id)
+        public T Get(int id)
         {
             T entity = null;
             string tableName = new T().GetTableName();
@@ -70,7 +70,7 @@ namespace fitness_tracking_app.Repositories
             return entity;
         }
 
-        public T customQueryGet(string where)
+        public T GetWhere(string where)
         {
             T entity = null;
             string tableName = new T().GetTableName();
@@ -96,7 +96,7 @@ namespace fitness_tracking_app.Repositories
             return entity;
         }
 
-        public List<T> getAll()
+        public List<T> GetAll()
         {
             List<T> entities = new List<T>();
             string tableName = new T().GetTableName();
@@ -123,7 +123,7 @@ namespace fitness_tracking_app.Repositories
             return entities;
         }
 
-        public List<T> getAllWhere(string where)
+        public List<T> GetAllWhere(string where)
         {
             List<T> entities = new List<T>();
             string tableName = new T().GetTableName();
@@ -149,7 +149,7 @@ namespace fitness_tracking_app.Repositories
 
             return entities;
         }
-        public bool update(T entity)
+        public bool Update(T entity)
         {
             Dictionary<string, object> fieldValues = entity.GetFieldValues();
             string tableName = entity.GetTableName();

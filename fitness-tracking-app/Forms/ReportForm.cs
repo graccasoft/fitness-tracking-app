@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using fitness_tracking_app.Models;
+using fitness_tracking_app.Services;
 
 namespace fitness_tracking_app.Forms {
     public partial class ReportForm : Form {
@@ -35,11 +37,10 @@ namespace fitness_tracking_app.Forms {
             lvActivities.FullRowSelect = true;
             lvActivities.GridLines = true;
             lvActivities.BorderStyle = BorderStyle.FixedSingle;
-            lvActivities.Columns.Add("ID", 50);
-            lvActivities.Columns.Add("Created At", 150);
-            lvActivities.Columns.Add("Activity", 100);
-            lvActivities.Columns.Add("Activity Metric", 100);
-            lvActivities.Columns.Add("Value", 100);
+            lvActivities.Columns.Add("Date", 150);
+            lvActivities.Columns.Add("Activity", 150);
+            lvActivities.Columns.Add("Activity Metric", 150);
+            lvActivities.Columns.Add("Value", 50);
             lvActivities.Columns.Add("Calories", 100);
         }
 
@@ -51,8 +52,7 @@ namespace fitness_tracking_app.Forms {
 
             foreach (var activity in activities)
             {
-                var listItem = new ListViewItem(activity.Id.ToString());
-                listItem.SubItems.Add(activity.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
+                var listItem = new ListViewItem(activity.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
                 listItem.SubItems.Add(activity.Activity.ToString());
                 listItem.SubItems.Add(activity.ActivityMetric.ToString());
                 listItem.SubItems.Add(activity.Value.ToString());

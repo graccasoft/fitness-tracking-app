@@ -17,20 +17,20 @@ namespace fitness_tracking_app.Services {
         }
 
         public UserGoal FetchUserGoal() {
-            var SavedGoal = repository.customQueryGet($"WHERE userId =  {MainForm.userId}");
+            var SavedGoal = repository.GetWhere($"WHERE userId =  {MainForm.userId}");
             if (SavedGoal == null) {
                 SavedGoal = new UserGoal();
                 SavedGoal.UserId = MainForm.userId;
                 SavedGoal.Goal = 0;
-                repository.save(SavedGoal);
-                return repository.customQueryGet($"WHERE userId =  {MainForm.userId}");
+                repository.Save(SavedGoal);
+                return repository.GetWhere($"WHERE userId =  {MainForm.userId}");
             }
             return SavedGoal;
             
         }
 
         public void SaveUserGoal(UserGoal goal) {
-            repository.update(goal);
+            repository.Update(goal);
         }
 
     }

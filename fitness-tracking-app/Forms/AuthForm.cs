@@ -26,7 +26,17 @@ namespace fitness_tracking_app.Forms {
             togglePanels();
         }
 
+        private void clearFields() {
+            txtFirstName.Text = "";
+            txtLastName.Text = "";
+            txtUsername.Text = "";
+            txtPassword.Text = "";
+            txtReTypePassword.Text = "";
+            txtLoginUsername.Text = "";
+            txtLoginPassword.Text = "";
+        }
         private void togglePanels() {
+            clearFields();
             registerPanel.Visible = !registerPanel.Visible;
             loginPanel.Visible = !loginPanel.Visible;
         }
@@ -42,13 +52,17 @@ namespace fitness_tracking_app.Forms {
             }
             var mainForm = new MainForm();
             MainForm.userId = user.Id;
+            mainForm.lblUsername.Text = $"Hi, {user.FirstName}";
             mainForm.Show();
             this.Hide();
         }
 
         private void btnRegister_Click(object sender, EventArgs e) {
 
-
+            if( txtPassword.Text != txtReTypePassword.Text) {
+                Notifications.warn("Passwords do not match");
+                return;
+            }
             var user = new User();
             user.FirstName = txtFirstName.Text;
             user.LastName = txtLastName.Text;
